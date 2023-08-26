@@ -168,9 +168,15 @@ Aşağıdaki işlemleri yapmak için indekseGoreFenomen işlevini kullanın:
 NOT: DÖNDÜĞÜNÜZ DİZİN YUKARIDAKİ BİÇİMLE EŞLEŞMESİ GEREKİR, YA DA TESTİ GEÇMEYECEKTİR!
 ÖRNEK: fenomenler dizisi ve 3 sayısı ile indekseGoreFenomen çağrılırsa, `3. indekste bulunan fenomen: Leo Messi' */
 
-function indekseGoreFenomen(/*kod*/) {
+function indekseGoreFenomen(birDizi, birSayi) {
   /*kod*/
+  const secilenFeno = birDizi[birSayi];
+  const { profile } = secilenFeno;
+
+  return `${birSayi}. indekste bulunan fenomen: ${profile}`;
 }
+
+console.log("Gorev3", indekseGoreFenomen(fenomenler, 3));
 
 
 
@@ -182,9 +188,17 @@ Aşağıdakileri yapmak için profilListesi'ni kullanın:
 🌟 Dönüş ÖRNEĞİ: ["Instagram", "Cristiano Ronaldo", "Kylie"....]
 */
 
-function profilListesi(/*kod*/) {
+function profilListesi(birDizi) {
   /*kod*/
+  const yeniDizi = [...birDizi];
+  for (let i = 0; i < birDizi.length; i++) {
+    yeniDizi[i] = birDizi[i].profile;
 }
+
+return yeniDizi;
+}
+
+console.log("Gorev4", profilListesi(fenomenler));
 
 
 
@@ -197,9 +211,15 @@ Aşağıdakileri yapmak için fenomenSil'i kullanın:
 5. Ortaya çıkan diziyi döndürün
 
 ÖRNEK: fenomenSil işlevi fenomenler dizisi ve 0 indeks sayısı ile çağrılırsa, veri kümemizden 'Instagram' kaldırılmış olarak döndürür. */
-function fenomenSil(/*kod*/) {
+function fenomenSil(arr, ind) {
   /*kod*/
-}
+    let newArr = [...arr];
+    newArr.splice(ind, 1);
+    return newArr;
+  }
+
+  console.log("Gorev5", fenomenSil(fenomenler, 0));
+
 
 
 
@@ -220,10 +240,22 @@ Aşağıdakileri yapmak için fenomenEkle'i kullanın:
 
 ÖRNEK: fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram") çağrıldığında dizinin sonuna yukarıdaki nesne en sona eklenerek yeni fenomenler dizisini döndürmelidir. */
 
-function fenomenEkle(/*kod*/) {
-  /*kod*/
+function fenomenEkle(someArray, number, profile, followers, posts, platform) {
+  const newArr = [...someArray];
+
+  const newFeno = {
+    number,
+    profile,
+    followers,
+    posts,
+    platform,
+  };
+
+  // newArr.push(newFeno);
+  return [...newArr, newFeno];
 }
 
+console.log("Gorev6",fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram"));
 
 /* Görev 7:
 Aşağıdakileri yapmak için enFenomenler'yi kullanın:
@@ -233,9 +265,21 @@ Aşağıdakileri yapmak için enFenomenler'yi kullanın:
 ÖRNEK: enFenomenler(fenomenler) çağrıldığında sonuç olarak ["Instagram", "Cristiano Ronaldo", ... "Khabane lame"] dönemelidir
 */
 
-function enFenomenler(/*kod*/) {
-  /*kod*/
+function enFenomenler(birDizi) {
+  const cokFenomenler = [];
+
+  for (let i = 0; i < birDizi.length; i++) {
+    const item = birDizi[i];
+    if (item.followers > 100000000) {
+      cokFenomenler.push(item.profile);
+    }
+  }
+
+  return cokFenomenler;
 }
+
+console.log("Gorev7", enFenomenler(fenomenler));
+
 
 
 /* Görev 8:
@@ -247,9 +291,19 @@ Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
 ÖRNEK: fenomenGonderimSayisi(fenomenler, 'Will Smith') çağrıldığında "136" dönmelidir
 */
 
-function fenomenGonderimSayisi(/*kod*/){
-  /*kod*/
+function fenomenGonderimSayisi(arrFen, searchProfile) {
+
+  for (let i = 0; i < arrFen.length; i++) {
+    if (arrFen[i].profile === searchProfile) {
+      return arrFen[i].posts;
+    }
+  }
+
+  return "bulunamadı";
 }
+
+console.log("Gorev8-1", fenomenGonderimSayisi(fenomenler, "Will Smith"));
+console.log("Gorev8-2", fenomenGonderimSayisi(fenomenler, "Will Will"));
 
 
 
@@ -264,10 +318,26 @@ Not: Gönderi sayısı belli olmayan (NA) hesaba katmayın.
 Örnek: platformaGoreCokGonderiYapanFenomen(fenomenler, 'TikTok') çağrıldığında "charli damelio" dönmelidir
 */
 
-function platformaGoreCokGonderiYapanFenomen(/*kod*/){
-  /*kod*/
+function platformaGoreCokGonderiYapanFenomen(birDizi, birPlatform) {
+  let maxPost = 0;
+  let maxPostProfile = "";
+
+  for (let i = 0; i < birDizi.length; i++) {
+    const item = birDizi[i];
+    if (
+      item.platform === birPlatform &&
+      maxPost < item.posts &&
+      typeof item.posts === "number"
+    ) {
+      maxPost = item.posts;
+      maxPostProfile = item.profile;
+    }
+  }
+
+  return maxPostProfile;
 }
 
+console.log("Gorev9", platformaGoreCokGonderiYapanFenomen(fenomenler, "TikTok"));
 
 
 /* ***** GÖREVLERİN SONU ***** */
